@@ -17,9 +17,8 @@ import org.leviatan.machinelearning.massivetextprocessing.util.platform.machinel
  */
 public final class PubmedMassiveProcessing {
 
-    protected static final String PATH_DATASET = "E:/Desarrollo/Datasets/Pubmed_2018_baseline/unzipped";
-    protected static final String PATH_DATASET_TEST = "E:/Desarrollo/Datasets/Pubmed_2018_baseline/test";
-    protected static final String PATH_DIR_DUMP = "E:/Desarrollo/Datasets_processed/Pubmed_2018_baseline";
+    private static final String PATH_DATASET = "C:/Alex/Dev/data_corpus/pubmed";
+    private static final String PATH_DIR_DUMP = "C:/Alex/Dev/data_corpus/pubmed_processed";
 
     private PubmedMassiveProcessing() {
     }
@@ -35,18 +34,16 @@ public final class PubmedMassiveProcessing {
         final String pathDataset = PATH_DATASET;
         final List<String> listStopWords = StopWords.getEnglish();
         final int maxTupleSize = 1;
-        final int freqMin = 115505;
+        final int freqMin = 2000;
         final String pathDirDump = PATH_DIR_DUMP;
 
         final String concreteConcept = "telomerase";
 
-        // final Set<String> setInterestingConcepts = freq(pathDataset,
-        // listStopWords, maxTupleSize, freqMin, pathDirDump);
+        final Set<String> setInterestingConcepts = freq(pathDataset, listStopWords, maxTupleSize, freqMin, pathDirDump);
 
-        freqSingle(pathDataset, listStopWords, maxTupleSize, freqMin, pathDirDump, concreteConcept);
+        //freqSingle(pathDataset, listStopWords, maxTupleSize, freqMin, pathDirDump, concreteConcept);
 
-        // relations(pathDataset, listStopWords, maxTupleSize, pathDirDump,
-        // setInterestingConcepts);
+        relations(pathDataset, listStopWords, maxTupleSize, pathDirDump, setInterestingConcepts);
 
         // browse(pathDirDump);
     }
@@ -63,8 +60,8 @@ public final class PubmedMassiveProcessing {
         return setInterestingConcepts;
     }
 
-    protected static Set<String> freqSingle(final String pathDataset, final List<String> listStopWords,
-            final int maxTupleSize, final int freqMin, final String pathDirDump, final String concreteConcept)
+    private static Set<String> freqSingle(final String pathDataset, final List<String> listStopWords,
+                                          final int maxTupleSize, final int freqMin, final String pathDirDump, final String concreteConcept)
                     throws Exception {
 
         System.out.println("Executing freq single >> " + concreteConcept);
@@ -77,8 +74,8 @@ public final class PubmedMassiveProcessing {
         return setInterestingConcepts;
     }
 
-    protected static void relations(final String pathDataset, final List<String> listStopWords, final int maxTupleSize,
-            final String pathDirDump, final Set<String> setInterestingConcepts) throws Exception {
+    private static void relations(final String pathDataset, final List<String> listStopWords, final int maxTupleSize,
+                                  final String pathDirDump, final Set<String> setInterestingConcepts) throws Exception {
 
         System.out.println("Executing relations");
 
@@ -86,7 +83,7 @@ public final class PubmedMassiveProcessing {
         PubmedEngineExecutor.runEngine(pathDataset, engine2, pathDirDump, true);
     }
 
-    protected static void browse(final String pathDirDump) {
+    private static void browse(final String pathDirDump) {
 
         System.out.println("Executing browse");
 
